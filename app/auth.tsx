@@ -1,9 +1,14 @@
-'use client'
+"use client"
 
-import { signIn, signOut } from 'next-auth/react'
+import { signIn, signOut } from "next-auth/react"
+import Link from "next/link"
 
 export const LoginButton = () => {
-  return <button onClick={() => signIn()}>Sign in</button>
+  return (
+    <Link className="py-2 px-2 bg-red-500 mr-5" href="/login">
+      Sign in
+    </Link>
+  )
 }
 
 export const LogoutButton = () => {

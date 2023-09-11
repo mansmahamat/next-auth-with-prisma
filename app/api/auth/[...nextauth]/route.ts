@@ -1,22 +1,22 @@
-import { prisma } from '@/lib/prisma'
-import { compare } from 'bcrypt'
-import NextAuth, { type NextAuthOptions } from 'next-auth'
-import CredentialsProvider from 'next-auth/providers/credentials'
+import { prisma } from "@/lib/prisma"
+import { compare } from "bcrypt"
+import NextAuth, { type NextAuthOptions } from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
 
 export const authOptions: NextAuthOptions = {
   session: {
-    strategy: 'jwt'
+    strategy: "jwt",
   },
   providers: [
     CredentialsProvider({
-      name: 'Sign in',
+      name: "Sign in",
       credentials: {
         email: {
-          label: 'Email',
-          type: 'email',
-          placeholder: 'hello@example.com'
+          label: "Email",
+          type: "email",
+          placeholder: "hello@example.com",
         },
-        password: { label: 'Password', type: 'password' }
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) {
@@ -25,8 +25,8 @@ export const authOptions: NextAuthOptions = {
 
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials.email
-          }
+            email: credentials.email,
+          },
         })
 
         if (!user) {
@@ -43,39 +43,43 @@ export const authOptions: NextAuthOptions = {
         }
 
         return {
-          id: user.id + '',
+          id: user.id + "",
           email: user.email,
           name: user.name,
-          randomKey: 'Hey cool'
+          image: user.image,
+          role: user.role,
+          randomKey: "Hello World",
         }
-      }
-    })
+      },
+    }),
   ],
   callbacks: {
-    session: ({ session, token }) => {
-      console.log('Session Callback', { session, token })
+    session: ({ session, token, user }) => {
       return {
         ...session,
         user: {
           ...session.user,
+          //@ts-ignore
+          role: token?.role ?? user?.role ?? "USER",
           id: token.id,
-          randomKey: token.randomKey
-        }
+          randomKey: token.randomKey,
+        },
       }
     },
     jwt: ({ token, user }) => {
-      console.log('JWT Callback', { token, user })
+      console.log("JWT Callback", { token, user })
       if (user) {
         const u = user as unknown as any
         return {
           ...token,
           id: u.id,
-          randomKey: u.randomKey
+          randomKey: u.randomKey,
+          role: u.role,
         }
       }
       return token
-    }
-  }
+    },
+  },
 }
 
 const handler = NextAuth(authOptions)

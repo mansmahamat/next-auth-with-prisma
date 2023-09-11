@@ -11,8 +11,63 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  password String
-  name     String?
+  id                     Int        @id @default(autoincrement())
+  email                  String     @unique
+  password               String
+  name                   String?
+  publicId               String?
+  format                 String?
+  version                String?
+  image                  String?
+  role                   String?
+  stripeCustomerId       String?    @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId   String?    @unique @map(name: "stripe_subscription_id")
+  stripePriceId          String?    @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd DateTime?  @map(name: "stripe_current_period_end")
+  developer              Developer?
+  recruiter              Recruiter?
+}
+
+model Experience {
+  id            Int        @id @default(autoincrement())
+  start         DateTime
+  end           DateTime?
+  companyName   String
+  role          String
+  isCurrentRole Boolean
+  Developer     Developer? @relation(fields: [developerId], references: [id])
+  developerId   Int?
+}
+
+model Developer {
+  id          Int          @id @default(autoincrement())
+  bio         String?
+  fullName    String?
+  slug        String?      @unique
+  city        String?
+  country     String?
+  avatar      String?
+  roleLevel   String?
+  devStatus   String?
+  hero        String?
+  website     String?
+  github      String?
+  linkedin    String?
+  twitter     String?
+  mastodon    String?
+  skills      String[]
+  languages   String[]
+  experiences Experience[]
+  user        User         @relation(fields: [userId], references: [id])
+  userId      Int          @unique
+}
+
+model Recruiter {
+  id          Int     @id @default(autoincrement())
+  companyName String?
+  website     String?
+  bio         String?
+  jobTitle    String?
+  user        User    @relation(fields: [userId], references: [id])
+  userId      Int     @unique
 }
