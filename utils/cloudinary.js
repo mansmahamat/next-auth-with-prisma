@@ -2,8 +2,8 @@ const cloudinary = require("cloudinary").v2
 
 cloudinary.config({
   cloud_name: "mansdesmez",
-  api_key: "318321927792211",
-  api_secret: "je9hSnY8_brgN7vLlMvEMvYSXzE",
+  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+  api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 })
 
 export function uploadImage(imageUploaded) {
