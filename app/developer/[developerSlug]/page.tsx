@@ -33,58 +33,6 @@ import { ParsedUrlQuery } from "querystring"
 import React from "react"
 import { BsGeoFill } from "react-icons/bs"
 
-export const projects = [
-  {
-    name: "Mood",
-    description: "Install and manage all the tools you need to be productive.",
-    link: { href: "https://getfleek.dev", label: "getfleek.dev" },
-    logo: logoAmazon,
-  },
-  {
-    name: "Vanilla OS",
-    description:
-      "Vanilla OS is an immutable and atomic Ubuntu Linux-based Point Release distribution, that receives updates at the right time, neither before nor after, without sacrificing security and functionality.",
-    link: { href: "https://vanillaos.org", label: "vanillaos.org" },
-    logo: logoAmazon,
-  },
-  //   {
-  //     name: "Captain Cook",
-  //     description:
-  //       "Creating technology to empower civilians to explore space on their own terms.",
-  //     link: {
-  //       href: "https://github.com/bketelsen/captainhook",
-  //       label: "github.com",
-  //     },
-  //     logo: logoAmazon,
-  //   },
-  //   {
-  //     name: "Kubernetes",
-  //     description: "Production-Grade Container Scheduling and Management",
-  //     link: {
-  //       href: "https://github.com/kubernetes/kubernetes",
-  //       label: "github.com",
-  //     },
-  //     logo: logoAmazon,
-  //   },
-  //   {
-  //     name: "Go",
-  //     description: "Build fast, reliable, and efficient software at scale",
-  //     link: { href: "https://go.dev", label: "go.dev" },
-  //     logo: logoAmazon,
-  //   },
-]
-
-const skills = [
-  "JavaScript",
-  " HTML",
-  " CSS",
-  "Java",
-  "C",
-  "C++",
-  "Android",
-  "Dev web",
-]
-
 async function getDeveloperBySlug(developerSlug: string) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}api/developer/getDeveloperBySlug?developerSlug=${developerSlug}`
