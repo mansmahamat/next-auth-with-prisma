@@ -176,16 +176,6 @@ export function ProfileForm({ userId, fullName }: ProfileFormProps) {
     })
   }
 
-  // const { ref } = usePlacesWidget({
-  //   apiKey: "AIzaSyAw63XAOg_JaalxYN4JtpVjRbsiCBPSGiY",
-  //   onPlaceSelected: (place) => {
-  //     console.log(place)
-  //   },
-  //   options: {
-  //     componentRestrictions: { country: selectedCountryCode },
-  //   },
-  // })
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
