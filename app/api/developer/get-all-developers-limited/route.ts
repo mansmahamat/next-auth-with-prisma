@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     orderBy: {
       id: "asc", // Use 'asc' for ascending order, or 'desc' for descending order
     },
-    take: 2,
+    take: 4,
   })
 
   return NextResponse.json(developers, {

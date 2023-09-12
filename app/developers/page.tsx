@@ -61,6 +61,7 @@ async function page() {
   let isCanceled = false
   if (subscriptionPlan.isPro && subscriptionPlan.stripeSubscriptionId) {
     const stripePlan = await stripe.subscriptions.retrieve(
+      //@ts-ignore
       subscriptionPlan.stripeSubscriptionId
     )
     isCanceled = stripePlan.cancel_at_period_end
