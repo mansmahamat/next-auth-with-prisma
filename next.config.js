@@ -10,6 +10,7 @@ const nextConfig = {
       "images.unsplash.com",
       "res.cloudinary.com",
       "www.pexels.com",
+      "q5fstuzu1uryvxr0.public.blob.vercel-storage.com",
     ],
   },
 }

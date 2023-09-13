@@ -24,10 +24,21 @@ async function getDeveloper(userId: string) {
   return res.json()
 }
 
+const slugify = (str: string) =>
+  str
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+
 async function page() {
   const session = await getServerSession(authOptions)
   //@ts-ignore
   const userId = session?.user?.id as string
+  const fullName = session?.user?.name as string
+
+  const slug = slugify(fullName)
 
   const developer = await getDeveloper(userId as string)
 
@@ -41,7 +52,7 @@ async function page() {
         <h3 className="text-lg font-medium">Avatar</h3>
       </div>
       <Separator />
-      <AvatarProfileForm user={session?.user} />
+      <AvatarProfileForm user={session?.user} slug={slug} />
     </div>
   )
 }

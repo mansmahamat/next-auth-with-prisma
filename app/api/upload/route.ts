@@ -10,51 +10,53 @@ import { unlink, unlinkSync } from "fs"
 export async function POST(request: NextRequest) {
   const formData = await request.formData()
 
-  const userId = formData.get("userId") as string
-  const userIdNumber = Number(userId)
+  // const userId = formData.get("userId") as string
+  // const userIdNumber = Number(userId)
   const file = formData.get("file") as Blob | null
-  if (!file) {
-    return NextResponse.json(
-      { error: "File blob is required." },
-      { status: 400 }
-    )
-  }
+  // if (!file) {
+  //   return NextResponse.json(
+  //     { error: "File blob is required." },
+  //     { status: 400 }
+  //   )
+  // }
 
-  const buffer = Buffer.from(await file.arrayBuffer())
-  const relativeUploadDir = `/uploads/${dateFn.format(Date.now(), "dd-MM-Y")}`
-  const uploadDir = join(process.cwd(), "public", relativeUploadDir)
+  console.log("MITOMA", file)
+
+  // const buffer = Buffer.from(await file.arrayBuffer())
+  // const relativeUploadDir = `/uploads/${dateFn.format(Date.now(), "dd-MM-Y")}`
+  // const uploadDir = join(process.cwd(), "public", relativeUploadDir)
+
+  // try {
+  //   await stat(uploadDir)
+  // } catch (e: any) {
+  //   if (e.code === "ENOENT") {
+  //     await mkdir(uploadDir, { recursive: true })
+  //   } else {
+  //     console.error(
+  //       "Error while trying to create directory when uploading a file\n",
+  //       e
+  //     )
+  //     return NextResponse.json(
+  //       { error: "Something went wrong." },
+  //       { status: 500 }
+  //     )
+  //   }
+  // }
 
   try {
-    await stat(uploadDir)
-  } catch (e: any) {
-    if (e.code === "ENOENT") {
-      await mkdir(uploadDir, { recursive: true })
-    } else {
-      console.error(
-        "Error while trying to create directory when uploading a file\n",
-        e
-      )
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      )
-    }
-  }
+    // const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`
+    // const filename = `${file.name.replace(
+    //   /\.[^/.]+$/,
+    //   ""
+    // )}-${uniqueSuffix}.${mime.getExtension(file.type)}`
+    // await writeFile(`${uploadDir}/${filename}`, buffer)
 
-  try {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`
-    const filename = `${file.name.replace(
-      /\.[^/.]+$/,
-      ""
-    )}-${uniqueSuffix}.${mime.getExtension(file.type)}`
-    await writeFile(`${uploadDir}/${filename}`, buffer)
+    // const fileUrl = `${relativeUploadDir}/${filename}`
 
-    const fileUrl = `${relativeUploadDir}/${filename}`
-
-    const imageData = await uploadImage(`${uploadDir}/${filename}`)
-
+    const imageData = await uploadImage(file)
+    console.log("CLOUD", imageData)
     // Retrieve the Cloudinary URL
-    const fileUrlCloud = imageData.secure_url
+    // const fileUrlCloud = imageData.secure_url
 
     //   const result = await prisma.image.create({
     //     data: {
@@ -64,27 +66,27 @@ export async function POST(request: NextRequest) {
     //     },
     //   });
 
-    const updateUser = await prisma.user.update({
-      where: {
-        id: userIdNumber,
-      },
-      data: {
-        image: fileUrlCloud,
-      },
-    })
+    // const updateUser = await prisma.user.update({
+    //   where: {
+    //     id: userIdNumber,
+    //   },
+    //   data: {
+    //     image: fileUrlCloud,
+    //   },
+    // })
 
-    const updateDev = await prisma.developer.update({
-      where: {
-        userId: userIdNumber,
-      },
-      data: {
-        avatar: fileUrlCloud,
-      },
-    })
+    // const updateDev = await prisma.developer.update({
+    //   where: {
+    //     userId: userIdNumber,
+    //   },
+    //   data: {
+    //     avatar: fileUrlCloud,
+    //   },
+    // })
 
-    await unlinkSync(`${uploadDir}/${filename}`)
+    //  await unlinkSync(`${uploadDir}/${filename}`)
 
-    return NextResponse.json({ fileUrl: fileUrlCloud })
+    return NextResponse.json({ fileUrl: "fileUrlCloud" })
   } catch (e) {
     console.error("Error while trying to upload a file\n", e)
     return NextResponse.json(
