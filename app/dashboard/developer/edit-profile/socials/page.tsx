@@ -40,9 +40,7 @@ async function page() {
       <div>
         <h3 className="text-lg font-medium">Add Your online presence</h3>
         <p className="text-sm text-muted-foreground">
-          Enhance your profile by showcasing your skills and tools. Let
-          recruiters and peers know about your expertise in various frontend
-          technologies.
+          Enhance your profile by showcasing your online presence.
         </p>
       </div>
       <Separator />

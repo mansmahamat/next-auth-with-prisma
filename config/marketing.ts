@@ -12,7 +12,7 @@ export const marketingConfig: MarketingConfig = {
     },
     {
       title: "Blog",
-      href: "/blog",
+      href: "https://www.avocadogrowth.com/en/blog",
     },
   ],
 }

@@ -67,11 +67,13 @@ async function page() {
     isCanceled = stripePlan.cancel_at_period_end
   }
 
-  const developers = await getDevelopers(subscriptionPlan?.isPro)
+  const developers = subscriptionPlan?.isPro
+    ? await getDevelopers(subscriptionPlan?.isPro)
+    : await getDevelopersLimited()
   return (
     <div className=" h-full w-screen  overflow-hidden bg-gray-50">
       <DevelopersLayout
-        developers={subscriptionPlan?.isPro ? developers : simpleDevelopers}
+        developers={developers}
         subscriptionPlan={{
           ...subscriptionPlan,
           isCanceled,

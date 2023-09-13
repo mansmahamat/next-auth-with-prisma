@@ -8,6 +8,9 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
 
   const developers = await prisma.developer.findMany({
+    where: {
+      devStatus: "active",
+    },
     orderBy: {
       id: "asc", // Use 'asc' for ascending order, or 'desc' for descending order
     },

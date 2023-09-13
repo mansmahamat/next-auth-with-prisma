@@ -14,19 +14,19 @@ export const dashboardConfigRecruiter: DashboardConfig = {
   ],
   sidebarNav: [
     {
-      title: "Posts",
-      href: "/dashboard",
-      icon: "post",
+      title: "Home",
+      href: "/dashboard/recruiter/",
+      icon: "home",
     },
     {
       title: "Billing",
       href: "/dashboard/recruiter/billing",
       icon: "billing",
     },
-    {
-      title: "Settings",
-      href: "/dashboard/settings",
-      icon: "settings",
-    },
+    // {
+    //   title: "Settings",
+    //   href: "/dashboard/settings",
+    //   icon: "settings",
+    // },
   ],
 }

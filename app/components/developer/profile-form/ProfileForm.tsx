@@ -39,6 +39,7 @@ import {
   ArrowUp,
   ArrowUpToLine,
   CheckIcon,
+  LoaderIcon,
   SortAsc,
 } from "lucide-react"
 import {
@@ -69,7 +70,7 @@ const profileFormSchema = z.object({
       message: "Country must not be longer than 30 characters.",
     })
     .optional(),
-  bio: z.string().max(160).min(4),
+  bio: z.string().max(360).min(4),
   roleLevel: z.enum(["Junior", "Mid-level", "Senior", "C-level"], {
     required_error: "You need to select a notification type.",
   }),
@@ -94,6 +95,8 @@ type ProfileFormProps = {
 export function ProfileForm({ userId, fullName }: ProfileFormProps) {
   const { toast } = useToast()
   const router = useRouter()
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const [countries, setCountries] = useState([])
   const [cities, setCities] = useState([])
@@ -138,6 +141,8 @@ export function ProfileForm({ userId, fullName }: ProfileFormProps) {
   const watch = form.watch()
 
   async function onSubmit(data: ProfileFormValues) {
+    setIsLoading(true)
+
     const formData = new FormData()
     formData.append("fullName", fullName!)
     formData.append("city", selectedCity)
@@ -154,6 +159,9 @@ export function ProfileForm({ userId, fullName }: ProfileFormProps) {
         method: "POST",
       }
     )
+
+    setIsLoading(false)
+
     if (developer.ok) {
       toast({
         title: "Profile updated",
@@ -383,6 +391,9 @@ export function ProfileForm({ userId, fullName }: ProfileFormProps) {
           className="bg-emerald-700 text-white hover:bg-emerald-600"
           type="submit"
         >
+          {isLoading && (
+            <LoaderIcon className=" animate-spin mr-2 text-gray-200" />
+          )}
           Create profile
         </Button>
       </form>

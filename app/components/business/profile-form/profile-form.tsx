@@ -84,7 +84,6 @@ export function ProfileForm({ userId }: ProfileFormProps) {
         title: "Profile updated",
         description: "Your profile has been updated.",
       })
-      console.log("recruiter", recruiter)
 
       router.push("/dashboard/recruiter")
     }
@@ -119,7 +118,7 @@ export function ProfileForm({ userId }: ProfileFormProps) {
             <FormItem>
               <FormLabel>Website</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="avocadogrowth.com" {...field} />
               </FormControl>
               <FormDescription></FormDescription>
               <FormMessage />

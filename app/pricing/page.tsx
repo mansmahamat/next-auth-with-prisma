@@ -58,7 +58,7 @@ export default function Page() {
                 </p>
                 <p className="mt-6 flex items-baseline justify-center gap-x-2">
                   <span className="text-5xl font-bold tracking-tight text-gray-900">
-                    $149
+                    $150
                   </span>
                 </p>
                 <a

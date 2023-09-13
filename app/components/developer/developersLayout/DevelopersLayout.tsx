@@ -21,6 +21,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import CountriesFilter from "../CountriesFilter/CountriesFilter"
+import Link from "next/link"
 
 type Props = {
   developers: Developer[]
@@ -416,7 +417,9 @@ function DevelopersLayout({ developers, subscriptionPlan }: BillingFormProps) {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Start hiring</AlertDialogAction>
+              <AlertDialogAction>
+                <Link href="/pricing">Start hiring</Link>
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

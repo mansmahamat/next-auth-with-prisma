@@ -33,6 +33,7 @@ export async function POST(request: Request) {
         city,
         fullName,
         slug,
+        devStatus: "active",
         user: {
           connect: {
             id: userIdNumber,

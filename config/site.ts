@@ -12,11 +12,12 @@ type SiteConfig = {
 export const siteConfig: SiteConfig = {
   name: "Avocado Growth Frontend Job Board",
   description:
-    "An open source application built using the new router, server components and everything new in Next.js 13.",
-  url: "https://tx.shadcn.com",
-  ogImage: "https://tx.shadcn.com/og.jpg",
+    "Say goodbye to lengthy applications and waiting for responses. Here, developers take the lead, creating profiles that showcase their skills and expertise.Recruiters and companies can then browse these profiles and connect directly with developers who match their requirements. It's a win-win situation for both sides.",
+  url: "https://frontend-job-board.avocadogrowth.com",
+  ogImage:
+    "https://res.cloudinary.com/mansdesmez/image/upload/v1694597672/opengraph-image_d9s4ts.png",
   links: {
     twitter: "https://twitter.com/mans_js",
-    github: "https://github.com/shadcn/taxonomy",
+    github: "",
   },
 }

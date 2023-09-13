@@ -84,7 +84,6 @@ export function EditExperienceForm({ userId, developer }: ProfileFormProps) {
   const developerId = (developer?.id).toString()
   const { toast } = useToast()
   const router = useRouter()
-  console.log(developer)
   // This can come from your database or API.
   // const defaultValues: Partial<ProfileFormValues> = {
   //   experience: developer?.experiences.map((experience: Experience) => ({

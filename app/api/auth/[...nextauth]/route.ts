@@ -60,14 +60,14 @@ export const authOptions: NextAuthOptions = {
         user: {
           ...session.user,
           //@ts-ignore
-          role: token?.role ?? user?.role ?? "USER",
+          role: token?.role ?? user?.role,
           id: token.id,
           randomKey: token.randomKey,
         },
       }
     },
     jwt: ({ token, user }) => {
-      console.log("JWT Callback", { token, user })
+      //   console.log("JWT Callback", { token, user })
       if (user) {
         const u = user as unknown as any
         return {

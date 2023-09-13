@@ -47,6 +47,11 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           </div>
         </div>
         <DropdownMenuSeparator />
+
+        <DropdownMenuItem asChild>
+          <Link href="/dashboard/">Dashboard</Link>
+        </DropdownMenuItem>
+        {/* <DropdownMenuSeparator />
         {user.role === "developer" && (
           <DropdownMenuItem asChild>
             <Link
@@ -59,13 +64,12 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           </DropdownMenuItem>
         )}
         <DropdownMenuItem asChild>
-          {user.role === "developer" ? (
-            <Link href="/dashboard/developer">Dashboard</Link>
-          ) : (
-            <Link href="/dashboard/recruiter">Dashboard</Link>
-          )}
+          // {user.role === "developer" ? (
+          //   <Link href="/dashboard/developer">Dashboard</Link>
+          // ) : (
+          //   <Link href="/dashboard/recruiter">Dashboard</Link>
+          // )}
         </DropdownMenuItem>
-
         {user.role === "recruiter" && (
           <DropdownMenuItem asChild>
             <Link href="/dashboard/recruiter/billing">Billing</Link>
@@ -75,7 +79,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           <DropdownMenuItem asChild>
             <Link href="/dashboard/developer/edit-profile">Settings</Link>
           </DropdownMenuItem>
-        )}
+        )} */}
 
         <DropdownMenuSeparator />
         <DropdownMenuItem

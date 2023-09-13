@@ -17,7 +17,10 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
   const pathname = usePathname()
 
   return (
-    <nav className={cn("flex space-x-2 ", className)} {...props}>
+    <nav
+      className={cn("flex space-x-2  overflow-y-scroll ", className)}
+      {...props}
+    >
       {items.map((item) => (
         <Link
           key={item.href}

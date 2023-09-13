@@ -56,9 +56,6 @@ export async function POST(request: NextRequest) {
     // Retrieve the Cloudinary URL
     const fileUrlCloud = imageData.secure_url
 
-    console.log("PARISMA", imageData)
-    console.log("CLOUDINARY", fileUrlCloud)
-
     //   const result = await prisma.image.create({
     //     data: {
     //       publicId: imageData.public_id,

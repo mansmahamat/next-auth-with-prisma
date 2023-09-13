@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 import { Icons } from "../Icons/Icons"
 import { MobileNav } from "../MobileNav/MobileNav"
 import Image from "next/image"
+import Logo from "@/images/logo.png"
 
 type NavItem = {
   title: string
@@ -30,12 +31,7 @@ export function MainNav({ items, children }: MainNavProps) {
   return (
     <div className="flex gap-6 md:gap-10">
       <Link href="/" className="hidden items-center space-x-2 md:flex">
-        <Image
-          src="https://res.cloudinary.com/mansdesmez/image/upload/v1692131604/Green_Circle_Thank_You_Sticker_4_akttyp.png"
-          alt="Logo"
-          width={34}
-          height={34}
-        />
+        <Image src={Logo} alt="Logo" width={34} height={34} />
         <span className="hidden font-bold sm:inline-block">
           {siteConfig.name}
         </span>
@@ -63,7 +59,11 @@ export function MainNav({ items, children }: MainNavProps) {
         className="flex items-center space-x-2 md:hidden"
         onClick={() => setShowMobileMenu(!showMobileMenu)}
       >
-        {showMobileMenu ? <Icons.close /> : <Icons.logo />}
+        {showMobileMenu ? (
+          <Icons.close />
+        ) : (
+          <Image src={Logo} alt="Logo" width={34} height={34} />
+        )}
         <span className="font-bold">Menu</span>
       </button>
       {showMobileMenu && items && (

@@ -15,6 +15,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import DeveloperCaroussel from "./components/DeveloperCarousel/DeveloperCarousel"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 async function getDevelopersLimited() {
   const res = await fetch(
@@ -56,8 +57,8 @@ export default async function Home() {
             Need a mentor ?
           </Link>
           <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
-            Welcome to the Reverse
-            <span className="font-bold"> Frontend Job Board</span>
+            Welcome to Avocado Growth
+            <span className="font-bold"> Reverse Frontend Job Board</span>
           </h1>
 
           <p className=" leading-normal text-muted-foreground sm:text-xl sm:leading-8">
@@ -89,13 +90,15 @@ export default async function Home() {
 
       <section
         id="features"
-        className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24"
+        className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-12"
       >
         <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-          <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
-            Benefits
+          <h2 className="font-heading text-3xl mb-10 leading-[1.1] sm:text-3xl md:text-4xl">
+            New frontend developers on Avocado Job board
           </h2>
-          <DeveloperCaroussel developerFeatured={developers} />
+          <div className="overflow-hidden">
+            <DeveloperCaroussel developerFeatured={developers} />
+          </div>
         </div>
       </section>
       <section
@@ -117,21 +120,6 @@ export default async function Home() {
         <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
           <div className="relative overflow-hidden rounded-lg border bg-background p-2">
             <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="h-12 w-12"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
-                />
-              </svg>
-
               <div className="space-y-2">
                 <h3 className="font-bold">Job Seekers Take the Lead</h3>
                 <p className="text-sm text-muted-foreground">

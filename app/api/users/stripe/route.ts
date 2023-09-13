@@ -7,7 +7,7 @@ import { absoluteUrl } from "@/lib/utils"
 import { authOptions } from "../../auth/[...nextauth]/route"
 import { proPlan } from "@/config/subscription"
 
-const billingUrl = "http://localhost:3000/dashboard/recruiter/billing"
+const billingUrl = `${process.env.NEXT_PUBLIC_APP_URL}dashboard/recruiter/billing`
 
 export async function GET(req: Request) {
   try {

@@ -54,100 +54,29 @@ async function page() {
             Choose Your Account Type
           </h3>
           <p className="mt-2  text-center text-sm text-gray-500">
-            We need to know whether you want to sign up as a mentor or a mentee.
+            We need to know whether you want to sign up as a recruiter or a
+            developer.
           </p>
           <p className="mt-2  text-center text-sm text-gray-500">
             Please select your account type below:
           </p>
-          <div className="mt-5 flex space-x-12 justify-between">
+          <div className="mt-5 mx-4 flex space-x-6 justify-between">
             <Link href="/onboarding/developer/step2">
               <Card className="w-full cursor-pointer rounded-lg hover:shadow-lg ">
                 <CardHeader className="pb-3">
                   <CardTitle>I'm looking for work</CardTitle>
-                  <CardDescription>
-                    Choose what you want to be notified about.
-                  </CardDescription>
+                  <CardDescription>You're a developer.</CardDescription>
                 </CardHeader>
-                <CardContent className="grid gap-1">
-                  <div className="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-all hover:bg-accent hover:text-accent-foreground">
-                    <BellIcon className="mt-px h-5 w-5" />
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        Everything
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Email digest, mentions & all activity.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="-mx-2 flex items-start space-x-4 rounded-md bg-accent p-2 text-accent-foreground transition-all">
-                    <PersonStandingIcon className="mt-px h-5 w-5" />
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        Available
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Only mentions and comments.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-all hover:bg-accent hover:text-accent-foreground">
-                    <EyeOffIcon className="mt-px h-5 w-5" />
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        Ignoring
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Turn off all notifications.
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
               </Card>
             </Link>
             <Link href="/onboarding/business/step2">
               <Card className="w-full cursor-pointer rounded-lg hover:shadow-lg ">
                 <CardHeader className="pb-3">
-                  <CardTitle>I'm hiring a developers</CardTitle>
+                  <CardTitle>I'm hiring developers</CardTitle>
                   <CardDescription>
-                    Choose what you want to be notified about.
+                    You're a recruiter or a company.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="grid gap-1">
-                  <div className="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-all hover:bg-accent hover:text-accent-foreground">
-                    <BellIcon className="mt-px h-5 w-5" />
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        Everything
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Email digest, mentions & all activity.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="-mx-2 flex items-start space-x-4 rounded-md bg-accent p-2 text-accent-foreground transition-all">
-                    <PersonStandingIcon className="mt-px h-5 w-5" />
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        Available
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Only mentions and comments.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-all hover:bg-accent hover:text-accent-foreground">
-                    <EyeOffIcon className="mt-px h-5 w-5" />
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        Ignoring
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Turn off all notifications.
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
               </Card>
             </Link>
           </div>
