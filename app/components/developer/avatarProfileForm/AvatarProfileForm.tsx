@@ -33,8 +33,6 @@ const AvatarProfileForm = ({ user, slug }: any) => {
     setImages(imageList)
   }
 
-  // const onSubmit = (data: any) => submitData(data)
-
   // const submitData = async (e: { preventDefault: () => void }) => {
   //   e.preventDefault()
   //   console.log("imageUploaded", imageUploaded)
