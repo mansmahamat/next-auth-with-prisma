@@ -8,6 +8,7 @@ import { marketingConfig } from "@/config/marketing"
 import { UserAccountNav } from "./components/UserAccountNav/UserAccountNav"
 import { getCurrentUser } from "@/lib/session"
 import SiteFooter from "./components/SiteFooter/SiteFooter"
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata = {
   title: "Create Next App",
@@ -53,7 +54,10 @@ export default async function RootLayout({
               )}
             </div>
           </header>
-          <Providers>{children}</Providers>
+          <Providers>
+            <Analytics />
+            {children}
+          </Providers>
           <SiteFooter />
         </div>
       </body>
