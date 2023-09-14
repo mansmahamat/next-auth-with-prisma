@@ -7,7 +7,6 @@ import * as z from "zod"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/app/components/ui/button"
-import { useToast } from "@/app/components/ui/use-toast"
 import {
   Form,
   FormControl,
@@ -32,6 +31,7 @@ import { Developer } from "@prisma/client"
 import { useState } from "react"
 import LoadingDots from "../../loading-dots"
 import { LoaderIcon } from "lucide-react"
+import toast, { Toaster } from "react-hot-toast"
 
 const profileFormSchema = z.object({
   // bio: z.string().max(160).min(4),
@@ -49,7 +49,6 @@ export function EditBioForm({ userId, developer }: ProfileFormProps) {
   const [isLoading, setIsLoading] = useState(false)
 
   const developerId = (developer?.id).toString()
-  const { toast } = useToast()
   const router = useRouter()
 
   // This can come from your database or API.
@@ -80,52 +79,52 @@ export function EditBioForm({ userId, developer }: ProfileFormProps) {
     )
 
     setIsLoading(false)
-
     if (developer.ok) {
-      toast({
-        title: "Profile updated",
-        description: "Your profile has been updated.",
-      })
-      router.push("/dashboard/developer")
-    }
+      toast.success("Profile updated")
 
-    toast({
-      title: "ERROR",
-      description: "Your profile has been updated.",
-    })
+      router.refresh()
+    }
+    if (!developer.ok) {
+      toast.error("Error please retry")
+    }
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="bio"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Bio</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Tell us a little bit about yourself"
-                  className="resize-none  h-64"
-                  {...field}
-                />
-              </FormControl>
+    <>
+      <Toaster />
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button
-          className="bg-emerald-700 text-white hover:bg-emerald-600"
-          type="submit"
-        >
-          {isLoading && (
-            <LoaderIcon className=" animate-spin mr-2 text-gray-200" />
-          )}
-          Update bio
-        </Button>
-      </form>
-    </Form>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="bio"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Bio</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Tell us a little bit about yourself"
+                    className="resize-none  h-64"
+                    {...field}
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            className="bg-emerald-700 text-white hover:bg-emerald-600"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading && (
+              <LoaderIcon className=" animate-spin mr-2 text-gray-200" />
+            )}
+            Update bio
+          </Button>
+        </form>
+      </Form>
+    </>
   )
 }

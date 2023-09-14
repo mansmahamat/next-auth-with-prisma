@@ -8,7 +8,6 @@ import * as z from "zod"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/app/components/ui/button"
-import { useToast } from "@/app/components/ui/use-toast"
 import {
   Form,
   FormControl,
@@ -32,6 +31,7 @@ import { useRouter } from "next/navigation"
 import { Developer } from "@prisma/client"
 import { LoaderIcon } from "lucide-react"
 import { useState } from "react"
+import toast, { Toaster } from "react-hot-toast"
 
 const profileFormSchema = z.object({
   website: z.string().optional(),
@@ -51,7 +51,6 @@ type ProfileFormProps = {
 export function EditSocialsForm({ userId, developer }: ProfileFormProps) {
   const [isLoading, setIsLoading] = useState(false)
 
-  const { toast } = useToast()
   const router = useRouter()
 
   const developerId = (developer?.id).toString()
@@ -93,17 +92,14 @@ export function EditSocialsForm({ userId, developer }: ProfileFormProps) {
     setIsLoading(false)
 
     if (developer.ok) {
-      toast({
-        title: "Profile updated",
-        description: "Your profile has been updated.",
-      })
-      router.push("/dashboard/developer")
+      toast.success("Profile updated")
+
+      router.refresh()
     }
 
-    toast({
-      title: "ERROR",
-      description: "Your profile has been updated.",
-    })
+    if (!developer.ok) {
+      toast.error("Error please retry")
+    }
     // toast({
     //   title: "You submitted the following values:",
     //   description: (
@@ -115,94 +111,97 @@ export function EditSocialsForm({ userId, developer }: ProfileFormProps) {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="website"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Website </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Frontend developer with expert-level experience in React"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription></FormDescription>
-              <FormMessage color="#FF0000" className="text-red-600 " />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="github"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Github </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Frontend developer with expert-level experience in React"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription></FormDescription>
-              <FormMessage color="#FF0000" className="text-red-600 " />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="linkedin"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Linkedin </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Frontend developer with expert-level experience in React"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription></FormDescription>
-              <FormMessage color="#FF0000" className="text-red-600 " />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="twitter"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Twitter </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Frontend developer with expert-level experience in React"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription></FormDescription>
-              <FormMessage color="#FF0000" className="text-red-600 " />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="mastodon"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Mastodon </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Frontend developer with expert-level experience in React"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription></FormDescription>
-              <FormMessage color="#FF0000" className="text-red-600 " />
-            </FormItem>
-          )}
-        />
-        {/* <div>
+    <>
+      <Toaster />
+
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="website"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Website </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Frontend developer with expert-level experience in React"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription></FormDescription>
+                <FormMessage color="#FF0000" className="text-red-600 " />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="github"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Github </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Frontend developer with expert-level experience in React"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription></FormDescription>
+                <FormMessage color="#FF0000" className="text-red-600 " />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="linkedin"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Linkedin </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Frontend developer with expert-level experience in React"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription></FormDescription>
+                <FormMessage color="#FF0000" className="text-red-600 " />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="twitter"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Twitter </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Frontend developer with expert-level experience in React"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription></FormDescription>
+                <FormMessage color="#FF0000" className="text-red-600 " />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="mastodon"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Mastodon </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Frontend developer with expert-level experience in React"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription></FormDescription>
+                <FormMessage color="#FF0000" className="text-red-600 " />
+              </FormItem>
+            )}
+          />
+          {/* <div>
           {fields.map((field, index) => (
             <FormField
               control={form.control}
@@ -234,16 +233,18 @@ export function EditSocialsForm({ userId, developer }: ProfileFormProps) {
             Add URL
           </Button>
         </div> */}
-        <Button
-          className="bg-emerald-700 text-white hover:bg-emerald-600"
-          type="submit"
-        >
-          {isLoading && (
-            <LoaderIcon className=" animate-spin mr-2 text-gray-200" />
-          )}
-          Update
-        </Button>
-      </form>
-    </Form>
+          <Button
+            className="bg-emerald-700 text-white hover:bg-emerald-600"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading && (
+              <LoaderIcon className=" animate-spin mr-2 text-gray-200" />
+            )}
+            Update
+          </Button>
+        </form>
+      </Form>
+    </>
   )
 }

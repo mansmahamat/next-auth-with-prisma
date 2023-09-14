@@ -7,7 +7,6 @@ import * as z from "zod"
 import Select from "react-select"
 import { cn } from "@/lib/utils"
 import { Button } from "@/app/components/ui/button"
-import { useToast } from "@/app/components/ui/use-toast"
 import {
   Form,
   FormControl,
@@ -26,6 +25,7 @@ import { Developer } from "@prisma/client"
 import { useEffect, useState } from "react"
 import { frontendSkillsAndTools } from "@/utils/frontend-skills"
 import { LoaderIcon } from "lucide-react"
+import toast, { Toaster } from "react-hot-toast"
 
 const profileFormSchema = z.object({
   // bio: z.string().max(160).min(4),
@@ -44,7 +44,6 @@ export function EditSkillsForm({ userId, developer }: ProfileFormProps) {
   const [isLoading, setIsLoading] = useState(false)
 
   const developerId = (developer?.id).toString()
-  const { toast } = useToast()
   const router = useRouter()
 
   // This can come from your database or API.
@@ -93,59 +92,61 @@ export function EditSkillsForm({ userId, developer }: ProfileFormProps) {
     setIsLoading(false)
 
     if (developer.ok) {
-      toast({
-        title: "Profile updated",
-        description: "Your profile has been updated.",
-      })
-      router.push("/dashboard/developer")
+      toast.success("Profile updated")
+
+      router.refresh()
     }
-    toast({
-      title: "ERROR",
-      description: "Your profile has been updated.",
-    })
+    if (!developer.ok) {
+      toast.error("Error please retry")
+    }
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="bio"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Skills</FormLabel>
-              <FormControl>
-                <Select
-                  className="block w-full"
-                  isMulti
-                  placeholder="Select your skills"
-                  //@ts-ignore
-                  value={selectedSkills.map((skill: any) => ({
-                    value: skill,
-                    label: skill,
-                  }))}
-                  options={frontendSkillsAndTools}
-                  onChange={handleChangeSkills}
-                />
-              </FormControl>
-              <FormDescription>
-                Feel free to update your skills as your knowledge grows!
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <>
+      <Toaster />
 
-        <Button
-          className="bg-emerald-700 text-white hover:bg-emerald-600"
-          type="submit"
-        >
-          {isLoading && (
-            <LoaderIcon className=" animate-spin mr-2 text-gray-200" />
-          )}
-          Update
-        </Button>
-      </form>
-    </Form>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="bio"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Skills</FormLabel>
+                <FormControl>
+                  <Select
+                    className="block w-full"
+                    isMulti
+                    placeholder="Select your skills"
+                    //@ts-ignore
+                    value={selectedSkills.map((skill: any) => ({
+                      value: skill,
+                      label: skill,
+                    }))}
+                    options={frontendSkillsAndTools}
+                    onChange={handleChangeSkills}
+                  />
+                </FormControl>
+                <FormDescription>
+                  Feel free to update your skills as your knowledge grows!
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button
+            className="bg-emerald-700 text-white hover:bg-emerald-600"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading && (
+              <LoaderIcon className=" animate-spin mr-2 text-gray-200" />
+            )}
+            Update
+          </Button>
+        </form>
+      </Form>
+    </>
   )
 }

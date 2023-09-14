@@ -96,10 +96,13 @@ export function EditLanguagesForm({ userId, developer }: ProfileFormProps) {
     setIsLoading(false)
 
     if (developer.ok) {
-      toast.success("Comment deleted")
-      router.push("/dashboard/developer")
+      toast.success("Profile updated")
+
+      router.refresh()
     }
-    toast.error("Error")
+    if (!developer.ok) {
+      toast.error("Error please retry")
+    }
   }
 
   return (
@@ -140,6 +143,7 @@ export function EditLanguagesForm({ userId, developer }: ProfileFormProps) {
           <Button
             className="bg-emerald-700 text-white hover:bg-emerald-600"
             type="submit"
+            disabled={isLoading}
           >
             {isLoading && (
               <LoaderIcon className=" animate-spin mr-2 text-gray-200" />

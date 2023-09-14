@@ -22,6 +22,7 @@ export async function GET(request: Request) {
     },
     include: {
       experiences: true,
+      user: true,
     },
   })
 

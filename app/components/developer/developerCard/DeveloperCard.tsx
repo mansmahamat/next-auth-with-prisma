@@ -14,6 +14,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Developer } from "@prisma/client"
 
 type Props = {}
 
@@ -21,7 +22,7 @@ interface BillingFormProps extends React.HTMLAttributes<HTMLFormElement> {
   subscriptionPlan?: UserSubscriptionPlan & {
     isCanceled: boolean
   }
-  developer?: any
+  developer?: Developer
   index?: number
   favs?: any
   reviews?: any
@@ -72,11 +73,6 @@ function DeveloperCard({
         </span> */}
       </div>
 
-      <div className="flex items-center">
-        <p className="text-base text-zinc-900 font-normal">
-          {developer?.job_title}
-        </p>
-      </div>
       <div className="my-4">
         {/* {JSON.parse(developer?.skills || "") && (
           <div className="flex flex-col space-x-1 ">
@@ -93,7 +89,10 @@ function DeveloperCard({
             </dd>
           </div>
         )} */}
-        {subscriptionPlan?.isPro ? (
+        <Button className="mt-4 text-xl w-full text-white bg-emerald-700 font-semibold py-2 rounded-xl shadow-lg">
+          <Link href={`/developer/${developer?.slug}`}>Visit profile</Link>
+        </Button>
+        {/* {subscriptionPlan?.isPro ? (
           <Button className="mt-4 text-xl w-full text-white bg-emerald-700 font-semibold py-2 rounded-xl shadow-lg">
             <a
               href={`mailto:${developer?.user?.email}`}
@@ -128,7 +127,7 @@ function DeveloperCard({
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-        )}
+        )} */}
       </div>
     </div>
   )

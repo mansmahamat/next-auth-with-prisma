@@ -8,7 +8,6 @@ import * as z from "zod"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/app/components/ui/button"
-import { useToast } from "@/app/components/ui/use-toast"
 import {
   Form,
   FormControl,
@@ -50,6 +49,7 @@ import {
   useState,
 } from "react"
 import { ExperienceCard } from "../experience-card/ExperienceCard"
+import toast, { Toaster } from "react-hot-toast"
 
 const profileFormSchema = z.object({
   // bio: z.string().max(160).min(4),
@@ -82,7 +82,6 @@ export function EditExperienceForm({ userId, developer }: ProfileFormProps) {
   const [isLoading, setIsLoading] = useState(false)
 
   const developerId = (developer?.id).toString()
-  const { toast } = useToast()
   const router = useRouter()
   // This can come from your database or API.
   // const defaultValues: Partial<ProfileFormValues> = {
@@ -132,41 +131,19 @@ export function EditExperienceForm({ userId, developer }: ProfileFormProps) {
     setIsLoading(false)
 
     if (developer.ok) {
-      toast({
-        title: "Profile updated",
-        description: "Your profile has been updated.",
-      })
-      router.push("/dashboard/developer")
-    }
-    toast({
-      title: "ERROR",
-      description: "Your profile has been updated.",
-    })
-  }
+      toast.success("Profile updated")
 
-  async function handleDeleteExperience(id: string) {
-    const developer = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}api/developer/delete-experience`,
-      {
-        body: JSON.stringify({ experienceId: id }),
-        method: "POST",
-      }
-    )
-    if (developer.ok) {
-      toast({
-        title: "Profile updated",
-        description: "Your profile has been updated.",
-      })
-      //   router.push("/dashboard/developer")
+      router.refresh()
     }
-    toast({
-      title: "ERROR",
-      description: "Your profile has been updated.",
-    })
+
+    if (!developer.ok) {
+      toast.error("Error please retry")
+    }
   }
 
   return (
     <>
+      <Toaster />
       <ExperienceCard experience={developer.experiences} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -337,6 +314,7 @@ export function EditExperienceForm({ userId, developer }: ProfileFormProps) {
           <Button
             className="bg-emerald-700 text-white hover:bg-emerald-600"
             type="submit"
+            disabled={isLoading}
           >
             {isLoading && (
               <LoaderIcon className=" animate-spin mr-2 text-gray-200" />

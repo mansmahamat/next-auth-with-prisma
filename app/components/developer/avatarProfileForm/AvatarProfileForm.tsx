@@ -80,7 +80,7 @@ const AvatarProfileForm = ({ user, slug }: any) => {
 
     if (response.ok) {
       toast.success("Avatar change")
-      router.push(`/developer/${slug}`)
+      router.refresh()
     } else {
       toast.error("Please retry")
     }
@@ -178,6 +178,7 @@ const AvatarProfileForm = ({ user, slug }: any) => {
                 </ImageUploading>
                 <button
                   type="submit"
+                  disabled={isLoading}
                   className="rounded-md flex justify-center bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
                 >
                   {isLoading && (

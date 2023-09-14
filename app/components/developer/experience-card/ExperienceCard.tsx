@@ -26,6 +26,7 @@ import moment from "moment"
 import { MdWork } from "react-icons/md"
 import { BsThreeDots } from "react-icons/bs"
 import { useRouter } from "next/navigation"
+import toast, { Toaster } from "react-hot-toast"
 
 type ExperienceCardProps = {
   experience: Experience[]
@@ -45,24 +46,25 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
       )
 
       if (response.ok) {
+        toast.success("Profile updated")
         // Fetch updated experiences after deletion
-        router.push("/dashboard/developer/edit-profile/experience")
+        router.refresh()
       } else {
         console.error("Error deleting experience")
       }
     } catch (error) {
       console.error("Error deleting experience:", error)
+      toast.error("Profile updated")
     }
   }
 
   return (
     <>
+      <Toaster />
       <Card>
         <CardHeader>
           <CardTitle>Experiences</CardTitle>
-          <CardDescription>
-            Invite your team members to collaborate.
-          </CardDescription>
+          <CardDescription>Showcase you experience</CardDescription>
         </CardHeader>
         {experience.map((experience: any, index) => (
           <CardContent key={index} className="grid gap-6">
@@ -92,9 +94,6 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
                     className="teamaspace-y-1 flex flex-col items-start px-4 py-2"
                   >
                     Delete
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
-                    Update
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

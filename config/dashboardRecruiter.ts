@@ -23,10 +23,10 @@ export const dashboardConfigRecruiter: DashboardConfig = {
       href: "/dashboard/recruiter/billing",
       icon: "billing",
     },
-    // {
-    //   title: "Settings",
-    //   href: "/dashboard/settings",
-    //   icon: "settings",
-    // },
+    {
+      title: "Settings",
+      href: "/dashboard/recruiter/settings",
+      icon: "settings",
+    },
   ],
 }

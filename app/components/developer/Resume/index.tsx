@@ -85,10 +85,10 @@ type ResumeProps = {
 
 function Resume({ experiences }: ResumeProps) {
   return (
-    <div className="rounded-2xl  border-emerald-600 p-6 ">
-      <h2 className="flex text-sm font-semibold text-zinc-900 ">
-        <BriefcaseIcon className="h-6 w-6 flex-none" />
-        <span className="ml-3 text-xl font-semibold">Work</span>
+    <div className="rounded-2xl  border border-emerald-700 p-6 ">
+      <h2 className="flex text-sm font-semibold  ">
+        <BriefcaseIcon className="h-6 text-emerald-500 w-6 flex-none" />
+        <span className="ml-3 text-xl text-zinc-900 font-semibold">Work</span>
       </h2>
       <ol className="mt-6 space-y-4">
         {experiences?.map((role: any, roleIndex) => (
@@ -98,7 +98,7 @@ function Resume({ experiences }: ResumeProps) {
             </div> */}
             <dl className="flex flex-auto flex-wrap gap-x-2">
               <dt className="sr-only">Company</dt>
-              <dd className="w-full flex-none text-sm font-medium text-zinc-900 ">
+              <dd className="w-full flex-none text-sm font-bold text-zinc-900 ">
                 {role.companyName}
               </dd>
               <dt className="sr-only">Role</dt>

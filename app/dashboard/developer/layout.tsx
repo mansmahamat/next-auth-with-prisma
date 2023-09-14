@@ -20,7 +20,7 @@ export default async function DashboardLayout({
   return (
     <div className="flex min-h-screen flex-col space-y-6">
       <header className="sticky top-0 z-40 border-b bg-background"></header>
-      <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
+      <div className="container grid md:flex-1 gap-12 md:grid-cols-[200px_1fr]">
         <aside className=" w-[200px] flex-col flex">
           <DashboardNav items={dashboardConfigDeveloper.sidebarNav} />
         </aside>

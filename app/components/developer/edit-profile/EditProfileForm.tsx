@@ -8,7 +8,6 @@ import * as z from "zod"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/app/components/ui/button"
-import { useToast } from "@/app/components/ui/use-toast"
 import {
   Form,
   FormControl,
@@ -32,6 +31,7 @@ import { useRouter } from "next/navigation"
 import { Developer } from "@prisma/client"
 import { LoaderIcon } from "lucide-react"
 import { useState } from "react"
+import toast, { Toaster } from "react-hot-toast"
 
 const profileFormSchema = z.object({
   hero: z
@@ -76,7 +76,6 @@ type ProfileFormProps = {
 export function EditProfileForm({ userId, developer }: ProfileFormProps) {
   const [isLoading, setIsLoading] = useState(false)
 
-  const { toast } = useToast()
   const router = useRouter()
 
   const developerId = (developer?.id).toString()
@@ -121,17 +120,13 @@ export function EditProfileForm({ userId, developer }: ProfileFormProps) {
     setIsLoading(false)
 
     if (developer.ok) {
-      toast({
-        title: "Profile updated",
-        description: "Your profile has been updated.",
-      })
-      router.push("/dashboard/developer")
-    }
+      toast.success("Profile updated")
 
-    toast({
-      title: "ERROR",
-      description: "Your profile has been updated.",
-    })
+      router.refresh()
+    }
+    if (!developer.ok) {
+      toast.error("Error please retry")
+    }
     // toast({
     //   title: "You submitted the following values:",
     //   description: (
@@ -143,138 +138,141 @@ export function EditProfileForm({ userId, developer }: ProfileFormProps) {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="hero"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Hero </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Frontend developer with expert-level experience in React"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>
-                Summarize yourself as a developer in a few words.
-              </FormDescription>
-              <FormMessage color="#FF0000" className="text-red-600 " />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="city"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>City</FormLabel>
-              <FormControl>
-                <Input placeholder="Tokyo" {...field} />
-              </FormControl>
+    <>
+      <Toaster />
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="country"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Country</FormLabel>
-              <FormControl>
-                <Input placeholder="Japan" {...field} />
-              </FormControl>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="hero"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Hero </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Frontend developer with expert-level experience in React"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>
+                  Summarize yourself as a developer in a few words.
+                </FormDescription>
+                <FormMessage color="#FF0000" className="text-red-600 " />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="city"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>City</FormLabel>
+                <FormControl>
+                  <Input placeholder="Tokyo" {...field} />
+                </FormControl>
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="country"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Country</FormLabel>
+                <FormControl>
+                  <Input placeholder="Japan" {...field} />
+                </FormControl>
 
-        <FormField
-          control={form.control}
-          name="roleLevel"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel>Role level</FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  className="flex flex-col space-y-1"
-                >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="Junior" />
-                    </FormControl>
-                    <FormLabel className="font-normal">Junior</FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="Mid-level" />
-                    </FormControl>
-                    <FormLabel className="font-normal">Mid-level</FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="Senior" />
-                    </FormControl>
-                    <FormLabel className="font-normal">Senior</FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="C-level" />
-                    </FormControl>
-                    <FormLabel className="font-normal">C-level</FormLabel>
-                  </FormItem>
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="devStatus"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel>Status</FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  className="flex flex-col space-y-1"
-                >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="active" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      Actively looking
-                    </FormLabel>
-                  </FormItem>
-                  <FormDescription className="ml-7 text-gray-700 italic">
-                    Your profile can get featured on the homepage.
-                  </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="hidden" />
-                    </FormControl>
-                    <FormLabel className="font-normal">Hidden</FormLabel>
-                  </FormItem>
-                  <FormDescription className="ml-7 text-gray-700 italic">
-                    Your profile is hidden and can only be seen by yourself.
-                  </FormDescription>
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {/* <div>
+          <FormField
+            control={form.control}
+            name="roleLevel"
+            render={({ field }) => (
+              <FormItem className="space-y-3">
+                <FormLabel>Role level</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex flex-col space-y-1"
+                  >
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="Junior" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Junior</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="Mid-level" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Mid-level</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="Senior" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Senior</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="C-level" />
+                      </FormControl>
+                      <FormLabel className="font-normal">C-level</FormLabel>
+                    </FormItem>
+                  </RadioGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="devStatus"
+            render={({ field }) => (
+              <FormItem className="space-y-3">
+                <FormLabel>Status</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex flex-col space-y-1"
+                  >
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="active" />
+                      </FormControl>
+                      <FormLabel className="font-normal">
+                        Actively looking
+                      </FormLabel>
+                    </FormItem>
+                    <FormDescription className="ml-7 text-gray-700 italic">
+                      Your profile can get featured on the homepage.
+                    </FormDescription>
+
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="hidden" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Hidden</FormLabel>
+                    </FormItem>
+                    <FormDescription className="ml-7 text-gray-700 italic">
+                      Your profile is hidden and can only be seen by yourself.
+                    </FormDescription>
+                  </RadioGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* <div>
           {fields.map((field, index) => (
             <FormField
               control={form.control}
@@ -306,16 +304,18 @@ export function EditProfileForm({ userId, developer }: ProfileFormProps) {
             Add URL
           </Button>
         </div> */}
-        <Button
-          className="bg-emerald-700 z-50 text-white hover:bg-emerald-600"
-          type="submit"
-        >
-          {isLoading && (
-            <LoaderIcon className=" animate-spin mr-2 text-gray-200" />
-          )}
-          Update
-        </Button>
-      </form>
-    </Form>
+          <Button
+            className="bg-emerald-700 z-50 text-white hover:bg-emerald-600"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading && (
+              <LoaderIcon className=" animate-spin mr-2 text-gray-200" />
+            )}
+            Update
+          </Button>
+        </form>
+      </Form>
+    </>
   )
 }

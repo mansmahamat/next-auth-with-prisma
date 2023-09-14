@@ -39,9 +39,8 @@ async function page() {
       <div>
         <h3 className="text-lg font-medium">Experience</h3>
         <p className="text-sm ">
-          Share a few paragraphs on what makes you unique as a developer. This
-          is your chance to market yourself to potential employers – sell
-          yourself a little!
+          Share a your experiene as a developer. This is your chance to market
+          yourself to potential employers
         </p>
       </div>
       <Separator />

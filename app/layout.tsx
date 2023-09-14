@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { MainNav } from "./components/MainNav/MainNav"
 import { marketingConfig } from "@/config/marketing"
-import { SiteFooter } from "./components/SiteFooter/SiteFooter"
 import { UserAccountNav } from "./components/UserAccountNav/UserAccountNav"
 import { getCurrentUser } from "@/lib/session"
+import SiteFooter from "./components/SiteFooter/SiteFooter"
 
 export const metadata = {
   title: "Create Next App",

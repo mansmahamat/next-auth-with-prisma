@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import DeveloperLayout from "@/app/components/developer/layout/dashboard/dashboard"
+import { Developer } from "@prisma/client"
 import { getServerSession } from "next-auth"
 import Link from "next/link"
 import { redirect } from "next/navigation"
@@ -27,39 +28,30 @@ export default async function Dashboard() {
   const userId = session?.user?.id
   const user = session?.user
 
-  const developer = await getDeveloper(userId as string)
+  const developer: Developer = await getDeveloper(userId as string)
 
   if (!developer) {
     redirect("/")
   }
 
   return (
-    <div className="bg-white mb-12">
-      <div className="max-w-7xl mx-auto px-4  sm:px-6 lg:px-8">
-        <div className="">
-          <h2 className="text-base  font-semibold text-emerald-600 tracking-wide uppercase">
-            Welcome {user?.name} on your Dashboard!
-          </h2>
-          <p className="max-w-xl mt-5   text-gray-500">
-            As a mentee on our platform, this is your dedicated space to manage
-            and enhance your mentoring experience. Here, you'll find a range of
-            powerful tools and resources.
-          </p>
-          <p className="max-w-xl my-5  text-gray-500">
-            Once you find a mentor you're interested in, click the "Contact"
-            button to request a session with them. Our team will review your
-            request and connect you with your chosen mentor if they're
-            available.
-          </p>
-
-          <button
-            type="button"
-            className="inline-flex mb-12 items-center justify-center px-4 py-2 font-medium rounded-md text-emerald-700 bg-emerald-100 hover:bg-emerald-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 sm:text-sm"
-          >
-            <Link href="/dashboard/developer/edit-profile">
-              Update your profile
+    <div className="bg-emerald-50">
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 md:py-24 md:px-8 md:flex md:items-center md:justify-between">
+        <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
+          <span className="block">Ready to dive in?</span>
+          <span className="block text-emerald-600">
+            Start finding your developer today.
+          </span>
+        </h2>
+        <div className="mt-8 flex md:mt-0 md:flex-shrink-0">
+          <div className="inline-flex rounded-md shadow">
+            <Link
+              href={`/developer/${developer?.slug}`}
+              className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700"
+            >
+              Visit your profile
             </Link>
-          </button>
+          </div>
         </div>
       </div>
     </div>

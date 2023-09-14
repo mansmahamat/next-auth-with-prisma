@@ -1,17 +1,13 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { getServerSession } from "next-auth"
-import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import React from "react"
 
 async function getRecruiter(userId: string) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}api/developer/getRecruiter?userId=${userId}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}api/recruiter/getRecruiter?userId=${userId}`
   )
-
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
