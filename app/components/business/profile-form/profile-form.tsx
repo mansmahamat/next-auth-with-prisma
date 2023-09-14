@@ -27,6 +27,8 @@ import {
 } from "@/app/components/ui/select"
 import { Textarea } from "@/app/components/ui/textarea"
 import { useRouter } from "next/navigation"
+import { LoaderIcon } from "lucide-react"
+import { useState } from "react"
 
 const profileFormSchema = z.object({
   companyName: z
@@ -55,6 +57,8 @@ type ProfileFormProps = {
 }
 
 export function ProfileForm({ userId }: ProfileFormProps) {
+  const [isLoading, setIsLoading] = useState(false)
+
   const router = useRouter()
 
   const form = useForm<ProfileFormValues>({
@@ -64,6 +68,8 @@ export function ProfileForm({ userId }: ProfileFormProps) {
   })
 
   async function onSubmit(data: ProfileFormValues) {
+    setIsLoading(true)
+
     const formData = new FormData()
     formData.append("companyName", data.companyName)
     formData.append("website", data.website)
@@ -78,6 +84,7 @@ export function ProfileForm({ userId }: ProfileFormProps) {
         method: "POST",
       }
     )
+    setIsLoading(false)
 
     if (recruiter.ok) {
       toast({
@@ -158,7 +165,15 @@ export function ProfileForm({ userId }: ProfileFormProps) {
           )}
         />
 
-        <Button type="submit">Update profile</Button>
+        <Button
+          className="bg-emerald-700 text-white hover:bg-emerald-600"
+          type="submit"
+        >
+          {isLoading && (
+            <LoaderIcon className=" animate-spin mr-2 text-gray-200" />
+          )}
+          Create profile
+        </Button>
       </form>
     </Form>
   )

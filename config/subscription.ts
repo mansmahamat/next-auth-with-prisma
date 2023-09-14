@@ -3,7 +3,7 @@ import { SubscriptionPlan } from "types"
 export const freePlan: SubscriptionPlan = {
   name: "Free",
   description:
-    "The free plan is limited to 4 developers profiles. Upgrade to the PRO plan for unlimited access.",
+    "The free plan is limited to developers profiles. Upgrade to the PRO plan for unlimited access.",
   stripePriceId: "",
 }
 
