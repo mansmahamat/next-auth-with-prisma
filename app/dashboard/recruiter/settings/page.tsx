@@ -8,8 +8,9 @@ import { DashboardHeader } from "@/app/components/DashboardHeader/DashboardHeade
 import { SettingsForm } from "@/app/components/recruiter/SettingsForm/SettingsForm"
 
 export const metadata = {
-  title: "Settings",
-  description: "Update your info",
+  title: "Avocado Growth - reverse frontend job board",
+  description:
+    "Say goodbye to lengthy applications and waiting for responses. Here, developers take the lead, creating profiles that showcase their skills and expertise.",
 }
 
 async function getRecruiter(userId: string) {

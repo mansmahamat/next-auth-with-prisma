@@ -12,8 +12,9 @@ import { Icons } from "@/app/components/Icons/Icons"
 import { BillingForm } from "@/app/components/BillingForm/BillingForm"
 
 export const metadata = {
-  title: "Billing",
-  description: "Manage billing and your subscription plan.",
+  title: "Avocado Growth - reverse frontend job board",
+  description:
+    "Say goodbye to lengthy applications and waiting for responses. Here, developers take the lead, creating profiles that showcase their skills and expertise.",
 }
 
 export default async function BillingPage() {

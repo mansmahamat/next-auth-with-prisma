@@ -8,8 +8,9 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import DeveloperLayout from "@/app/components/developer/layout/dashboard/dashboard"
 
 export const metadata: Metadata = {
-  title: "Forms",
-  description: "Advanced form example using react-hook-form and Zod.",
+  title: "Avocado Growth - reverse frontend job board",
+  description:
+    "Say goodbye to lengthy applications and waiting for responses. Here, developers take the lead, creating profiles that showcase their skills and expertise.",
 }
 
 const sidebarNavItems = [
