@@ -10,10 +10,14 @@ import { getCurrentUser } from "@/lib/session"
 import SiteFooter from "./components/SiteFooter/SiteFooter"
 import { Analytics } from "@vercel/analytics/react"
 
-export const metadata = {
+export const meta = {
   title: "Avocado Growth - reverse frontend job board",
   description:
     "Say goodbye to lengthy applications and waiting for responses. Here, developers take the lead, creating profiles that showcase their skills and expertise.",
+  cardImage: "/opengraph-image.png",
+  icons: {
+    icon: "/favicon.png",
+  },
 }
 
 export default async function RootLayout({
