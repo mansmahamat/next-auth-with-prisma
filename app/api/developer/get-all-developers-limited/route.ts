@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
       devStatus: "active",
     },
     orderBy: {
-      id: "asc", // Use 'asc' for ascending order, or 'desc' for descending order
+      id: "desc", // Use 'asc' for ascending order, or 'desc' for descending order
     },
     take: 4,
   })
