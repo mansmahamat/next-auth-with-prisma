@@ -34,8 +34,8 @@ async function getDevelopersLimited() {
 }
 
 export default async function Home() {
-  // const session = await getServerSession(authOptions)
-  // const developers = await getDevelopersLimited()
+  const session = await getServerSession(authOptions)
+  const developers = await getDevelopersLimited()
 
   return (
     // <main>
@@ -88,7 +88,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* {developers.length > 0 && (
+      {developers.length > 0 && (
         <section
           id="developers"
           className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-12"
@@ -102,7 +102,7 @@ export default async function Home() {
             </div>
           </div>
         </section>
-      )} */}
+      )}
       <section
         id="features"
         className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24"
